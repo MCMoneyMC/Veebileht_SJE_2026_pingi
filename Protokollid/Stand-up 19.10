@@ -1,0 +1,60 @@
+Stand-Up 19.10.26 
+
+Teema: 
+- Kaalutud keskmise prognoosimine, aine hinnete planeerimine
+	? Automaatselt võtta esimese semestri õppeained lähtuvalt õppekavast
+	? Registreeringute ja hinnetelehe import ÕISist?
+	? Lehtedevaheline andmete vahemällu salvestamine
+	? Light mode/Dark mode
+
+Projektist lähemalt:
+  Vahelehed:
+  - Ühe semestri leht
+  - Õppekava leht
+  
+  Igal lehel:
+  - Header
+  - Footer
+
+  Koduleht:
+  - Tervitus, selgitus
+  - Juhend
+  - Pääs kalkulaatorisse
+  
+  Ühe semestri leht:
+  - Konteineris ühe semestri ainete/hinnet tabel
+  	- Õppeained ridadena (kood, nimi, eap, hinne)
+  	- Õppeaine rea lisamine tabelisse plussiga
+  	- Õppeaine rea kustutamine
+  - Tühjenda nupp
+  	- Kinnituse kontroll
+  - Kalkuleeri nupp
+  - Tekib rida, mis ütleb, milliseid hindeid vajad lävendi ületamiseks
+  
+  Õppekava leht:
+  - Kasutab ühe semestri lehe loogikat (v.a vaid semestri kalkuleerimine)
+  - Tühjenda kõik nupp lisaks semestri tühjendusele
+
+
+Kokkulepped:
+- Kõik kasutavad oma branchi
+- Iga nädal 30 min stand-up E 13:00-13:30
+- Anname puudumistest ette teada
+- Kaks puudutud stand-upi ette teatamata -> report (anname teada sellest puudujale)
+- 28-29.11 Crunch
+- Suhtluskanal Discord, lisaks olemas kõigil üksteise telefoni number
+
+Toimimine:
+- Pull requestid Lars
+? Juhendaja
+? Python back-end
+
+
+Järgmiseks Stand-upiks 26.10.26 (Discord):
+LARS:
+- Kirjutan Mirjamile Pythoni kohta
+- Sõnastan rühmas töötamise kokkulepped
+- Koostan algelise tööplaani
+
+KÕIK:
+- Pane discordi kirja oma tel. nr.

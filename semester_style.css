@@ -1,0 +1,6 @@
+/*Menüü nupp on aktiivne olenevalt lehest, võib ka teise loogika abil teha, praegu tegin nii.*/
+.active {
+  background-color: #063f3f;
+  color: cyan;
+  border-radius: 25px;
+}

@@ -1,4 +1,5 @@
 import math
+import itertools
 """
 siia lisame frontist aine hinded ja ainepunktid
 """
@@ -14,7 +15,6 @@ def kaalutud_keskmine(hinded, ainepunktid):
     for i in range(len(hinded)):
         """
         Kaalutud keskmise arvutamisel tuleb aga arvesse võtta ka ainepunktide arv (hinne x ainepunktid), mis tuleb läbi jagada ainepunktide koguarvuga.
-         
         link: https://ut.ee/et/sisu/keskmine-hinne
         """
         #print(i)
@@ -33,19 +33,15 @@ def kaalutud_keskmine(hinded, ainepunktid):
 
 print(kaalutud_keskmine(hinded, ainepunktid))
 """
-siia lisame frontist aine hinded, ainepunktid ja soovitud hinne
-"""
-hinded = [5, 3, '']
-ainepunktid = [6, 3, 6]
-soovitud = 4
-"""
 seda kasutame kui on puuduv hinne
 """
 def ennustaja(hinded, ainepunktid, soovitud):
 
     summa = 0
     ainepunktide_summa = 0
-    puuduv_ainepunkt = 0
+    #puuduv_ainepunkt = 0
+    puuduvad = []
+    sobivad = []
     
     for i in range(len(hinded)):
         if hinded[i] != '':
@@ -67,25 +63,63 @@ def ennustaja(hinded, ainepunktid, soovitud):
             """
             kui hinne on tühi, siis läheb siia
             """
-            puuduv_ainepunkt += ainepunktid[i]
+            #puuduv_ainepunkt += ainepunktid[i]
+            puuduvad.append(i)
 
+    puuduv_ap = sum(ainepunktid[i] for i in puuduvad)
+    kogu_ap = ainepunktide_summa + puuduv_ap
     #print(summa, 'summa')
     #print(ainepunktide_summa, 'ainepunktide_summa')
     #print(puuduv_ainepunkt, 'puuduv_ainepunkt')
     """
-    Leiame puuduva hinde: korrutame soovitud keskmise kõikide ainepunktide koguarvuga,
-    lahutame sellest olemasolevate hinnete kaalutud summa
-    ning jagame tulemuse puuduva aine ainepunktidega.
+    Proovime kõiki puuduvaid hindeid vahemikus 0-5
     """
-    vajalik_hinne = (soovitud *
-                      (ainepunktide_summa + puuduv_ainepunkt) - summa
-                    ) / puuduv_ainepunkt
-    """
-    kasutan round, et leida kõrge vajalik hinne et soovitud hinde saada
-    """
-    if math.ceil(vajalik_hinne) > 5:
-        return "soovitud pole võimalik saada"
-    else:
-        return math.ceil(vajalik_hinne)
+    kombinatsioonid = itertools.product(range(6), repeat=len(puuduvad))
+
+    for kombinatsioon in kombinatsioonid:
+        #print(kombinatsioon)
+        uus_summa = summa
+        """
+        loopime kõik puuduvad hinded läbi, ja lisame uuele summale kombinatsioon hinne ja selle ainepunkt
+        """
+        for j in range(len(puuduvad)):
+            uus_summa += kombinatsioon[j] * ainepunktid[puuduvad[j]]
+
+        keskmine = int((uus_summa / kogu_ap) * 10) / 10
+
+        if keskmine >= soovitud:
+            sobivad.append(kombinatsioon)
+
+    if not sobivad:
+        return "soovitud hinne pole võimalik saada"
+
+    return sobivad
+
+    #"""
+    #Leiame puuduva hinde: korrutame soovitud keskmise kõikide ainepunktide koguarvuga,
+    #lahutame sellest olemasolevate hinnete kaalutud summa
+    #ning jagame tulemuse puuduva aine ainepunktidega.
+    #"""
+    #vajalik_hinne = (soovitud * (ainepunktide_summa + puuduv_ainepunkt) - summa ) / puuduv_ainepunkt
+    #"""
+    #kasutan round, et leida kõrge vajalik hinne et soovitud hinde saada
+    #"""
+    #if math.ceil(vajalik_hinne) > 5:
+    #    return "soovitud pole võimalik saada"
+    #else:
+    #    return math.ceil(vajalik_hinne)
+
+"""
+siia lisame frontist aine hinded, ainepunktid ja soovitud hinne
+"""
+hinded = [3, '', 5, '']
+ainepunktid = [6, 3, 3, 6]
+soovitud = 4
+    
+print('ennustaja', ennustaja(hinded, ainepunktid, soovitud))
+
+hinded = [3, '', '', '']
+ainepunktid = [6, 3, 3, 6]
+soovitud = 4
     
 print('ennustaja', ennustaja(hinded, ainepunktid, soovitud))

@@ -31,7 +31,7 @@ def kaalutud_keskmine(hinded, ainepunktid):
     """
     return int((summa / ainepunktide_summa) * 10) / 10
 
-print(kaalutud_keskmine(hinded, ainepunktid))
+#print(kaalutud_keskmine(hinded, ainepunktid))
 """
 seda kasutame kui on puuduv hinne
 """
@@ -41,6 +41,7 @@ def ennustaja(hinded, ainepunktid, soovitud):
     ainepunktide_summa = 0
     #puuduv_ainepunkt = 0
     puuduvad = []
+    #puuduvate_ainepunkt = []
     sobivad = []
     
     for i in range(len(hinded)):
@@ -65,6 +66,8 @@ def ennustaja(hinded, ainepunktid, soovitud):
             """
             #puuduv_ainepunkt += ainepunktid[i]
             puuduvad.append(i)
+            #puuduvate_ainepunkt.append(ainepunktid[i])
+            #print(ainepunktid[i], 'aine')
 
     puuduv_ap = sum(ainepunktid[i] for i in puuduvad)
     kogu_ap = ainepunktide_summa + puuduv_ap
@@ -112,14 +115,73 @@ def ennustaja(hinded, ainepunktid, soovitud):
 """
 siia lisame frontist aine hinded, ainepunktid ja soovitud hinne
 """
-hinded = [3, '', 5, '']
-ainepunktid = [6, 3, 3, 6]
-soovitud = 4
-    
-print('ennustaja', ennustaja(hinded, ainepunktid, soovitud))
-
 hinded = [3, '', '', '']
 ainepunktid = [6, 3, 3, 6]
 soovitud = 4
     
-print('ennustaja', ennustaja(hinded, ainepunktid, soovitud))
+#print('ennustaja', ennustaja(hinded, ainepunktid, soovitud))
+
+def üld_ennustaja(hinded_list, ainepunktid_list, soovitud):
+    summa = 0
+    ainepunktide_summa = 0
+    #puuduv_ainepunkt = 0
+    puuduvad = []
+    sobivad = []
+    for hinded, ainepunktid in zip(hinded_list, ainepunktid_list):
+        for i in range(len(hinded)):
+                if hinded[i] != '':
+                    """
+                    Kaalutud keskmise arvutamisel tuleb aga arvesse võtta ka ainepunktide arv (hinne x ainepunktid), mis tuleb läbi jagada ainepunktide koguarvuga.
+                        
+                    link: https://ut.ee/et/sisu/keskmine-hinne
+                    """
+                        #print(i)
+                        #print(hinded[i], 'hinded')
+                        #print(ainepunktid[i], 'ainepunktid')
+
+                    summa += hinded[i] * ainepunktid[i]
+                    ainepunktide_summa += ainepunktid[i]
+                
+                    #print(summa)
+                    #print(ainepunktide_summa)
+                else:
+                    """
+                    kui hinne on tühi, siis läheb siia
+                    """
+                    #puuduv_ainepunkt += ainepunktid[i]
+                    puuduvad.append(i)
+
+    puuduv_ap = sum(ainepunktid[i] for i in puuduvad)
+    kogu_ap = ainepunktide_summa + puuduv_ap
+        #print(summa, 'summa')
+        #print(ainepunktide_summa, 'ainepunktide_summa')
+        #print(puuduv_ainepunkt, 'puuduv_ainepunkt')
+    """
+    Proovime kõiki puuduvaid hindeid vahemikus 0-5
+    """
+    kombinatsioonid = itertools.product(range(6), repeat=len(puuduvad))
+        
+    for kombinatsioon in kombinatsioonid:
+        #print(kombinatsioon)
+        uus_summa = summa
+        """
+        loopime kõik puuduvad hinded läbi, ja lisame uuele summale kombinatsioon hinne ja selle ainepunkt
+        """
+        for j in range(len(puuduvad)):
+            uus_summa += kombinatsioon[j] * ainepunktid[puuduvad[j]]
+        
+        keskmine = int((uus_summa / kogu_ap) * 10) / 10
+        
+        if keskmine >= soovitud:
+            sobivad.append(kombinatsioon)
+        
+    if not sobivad:
+        return "soovitud hinne pole võimalik saada"
+        
+    return sobivad   
+
+hinded_list = [[5, 2, 5], [5, '', ''], [5, '', '', '']]
+ainepunktid_list = [[6, 6, 6], [6, 6, 6], [6, 6, 6, 3]]
+soovitud = 4
+
+print('ennustaja', üld_ennustaja(hinded_list, ainepunktid_list, soovitud))

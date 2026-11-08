@@ -33,7 +33,7 @@ def kaalutud_keskmine(hinded, ainepunktid):
 
 #print(kaalutud_keskmine(hinded, ainepunktid))
 """
-seda kasutame kui on puuduv hinne
+seda kasutame kui on puuduv hinne semester vaates
 """
 def ennustaja(hinded, ainepunktid, soovitud):
 
@@ -79,19 +79,33 @@ def ennustaja(hinded, ainepunktid, soovitud):
     """
     kombinatsioonid = itertools.product(range(6), repeat=len(puuduvad))
 
+    väiksem_summa = 0
+        
     for kombinatsioon in kombinatsioonid:
         #print(kombinatsioon)
         uus_summa = summa
+        uus_ap = []
         """
         loopime kõik puuduvad hinded läbi, ja lisame uuele summale kombinatsioon hinne ja selle ainepunkt
         """
         for j in range(len(puuduvad)):
             uus_summa += kombinatsioon[j] * ainepunktid[puuduvad[j]]
-
+            #print(ainepunktid[puuduvad[j]])
+            uus_ap.append(ainepunktid[puuduvad[j]])
+            
         keskmine = int((uus_summa / kogu_ap) * 10) / 10
 
+        """
+        Kui keskmine on suurem või võrdne kui soovitud ja "väiksem_summa" on tühi või leiame väiksem_summa abil,
+        mis on kõige väiksemad hinded ja nende ainepunktid, millega saab soovitud hinnet,
+        siis lisame või muudame "sobivad" väärtust
+        """
         if keskmine >= soovitud:
-            sobivad.append(kombinatsioon)
+            if väiksem_summa == 0 or uus_summa < väiksem_summa:
+                #print(uus_summa, väiksem_summa, keskmine, uus_ap)
+                sobivad = list(zip(kombinatsioon, uus_ap))
+                #sobivad.append(kombinatsioon)
+                väiksem_summa = uus_summa
 
     if not sobivad:
         return "soovitud hinne pole võimalik saada"
@@ -119,8 +133,10 @@ hinded = [3, '', '', '']
 ainepunktid = [6, 3, 3, 6]
 soovitud = 4
     
-#print('ennustaja', ennustaja(hinded, ainepunktid, soovitud))
-
+print(ennustaja(hinded, ainepunktid, soovitud))
+"""
+seda kasutame kui on puuduv hinne oppekava vaates
+"""
 def üld_ennustaja(hinded_list, ainepunktid_list, soovitud):
     summa = 0
     ainepunktide_summa = 0
@@ -149,9 +165,9 @@ def üld_ennustaja(hinded_list, ainepunktid_list, soovitud):
                     kui hinne on tühi, siis läheb siia
                     """
                     #puuduv_ainepunkt += ainepunktid[i]
-                    puuduvad.append(i)
+                    puuduvad.append(ainepunktid[i])
 
-    puuduv_ap = sum(ainepunktid[i] for i in puuduvad)
+    puuduv_ap = sum(puuduvad)
     kogu_ap = ainepunktide_summa + puuduv_ap
         #print(summa, 'summa')
         #print(ainepunktide_summa, 'ainepunktide_summa')
@@ -160,28 +176,41 @@ def üld_ennustaja(hinded_list, ainepunktid_list, soovitud):
     Proovime kõiki puuduvaid hindeid vahemikus 0-5
     """
     kombinatsioonid = itertools.product(range(6), repeat=len(puuduvad))
-        
+
+    väiksem_summa = 0
+    
     for kombinatsioon in kombinatsioonid:
         #print(kombinatsioon)
         uus_summa = summa
+        uus_ap = []
         """
         loopime kõik puuduvad hinded läbi, ja lisame uuele summale kombinatsioon hinne ja selle ainepunkt
         """
         for j in range(len(puuduvad)):
-            uus_summa += kombinatsioon[j] * ainepunktid[puuduvad[j]]
+            uus_summa += kombinatsioon[j] * puuduvad[j]
+            #print(ainepunktid[puuduvad[j]])
+            uus_ap.append(puuduvad[j])
         
         keskmine = int((uus_summa / kogu_ap) * 10) / 10
-        
+        """
+        Kui keskmine on suurem või võrdne kui soovitud ja "väiksem_summa" on tühi või leiame väiksem_summa abil,
+        mis on kõige väiksemad hinded ja nende ainepunktid, millega saab soovitud hinnet,
+        siis lisame või muudame "sobivad" väärtust
+        """
         if keskmine >= soovitud:
-            sobivad.append(kombinatsioon)
+            if väiksem_summa == 0 or uus_summa < väiksem_summa:
+                #print(uus_summa, väiksem_summa, keskmine, uus_ap)
+                sobivad = list(zip(kombinatsioon, uus_ap))
+                #sobivad.append(kombinatsioon)
+                väiksem_summa = uus_summa
         
     if not sobivad:
         return "soovitud hinne pole võimalik saada"
         
-    return sobivad   
+    return sobivad
 
-hinded_list = [[5, 2, 5], [5, '', ''], [5, '', '', '']]
+hinded_list = [[5, '', ''], [5, '', ''], [5, 3, '', '']]
 ainepunktid_list = [[6, 6, 6], [6, 6, 6], [6, 6, 6, 3]]
 soovitud = 4
 
-print('ennustaja', üld_ennustaja(hinded_list, ainepunktid_list, soovitud))
+print(üld_ennustaja(hinded_list, ainepunktid_list, soovitud))

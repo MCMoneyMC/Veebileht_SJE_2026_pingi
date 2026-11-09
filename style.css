@@ -1,0 +1,81 @@
+/*Muuta vastavalt vajadusele, kommenteeritud asjad peaks uncommentima ja ära tegema*/
+* {
+    box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  margin: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* header, main, footer*/
+}
+
+header {
+  overflow: hidden;
+  background-color: #09185f;
+  padding: 20px 30px;
+  min-height: 50px;
+}
+.logo {
+  float: left;
+  color: #ffffff;
+  text-align: center;
+  padding: 18px;
+  text-decoration: none;
+  font-size: 18px; 
+}
+.menu a  {
+  float: left;
+  color: #ffffff;
+  text-align: center;
+  padding: 18px;
+  text-decoration: none;
+  font-size: 18px; 
+}
+
+.menu a:hover {
+  background-color: cyan;
+  color: #063f3f;
+  border-radius: 25px;
+}
+
+.menu {
+  float: right;
+}
+
+footer {
+  overflow: hidden;
+  background-color: #09185f;
+  padding: 20px 30px;
+  min-height: 50px;
+  display: grid;
+  grid-template-columns: max-content max-content 1fr;
+  column-gap: 50px;
+}
+.moto .authors {
+  background-color: aqua;
+  display: flex;
+  color: white;
+}
+.moto {
+  font-size: 18px; 
+  float: left;
+  color: #ffffff;
+}
+.authors {
+  font-size: 18px; 
+  float: right;
+  color: #ffffff;
+  text-align: right;
+}
+/*Google ütles, et 320px võiks olla väikseim ekraan width*/
+@media screen and (max-width: 320px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  
+  .menu {
+    float: none;
+  }
+}

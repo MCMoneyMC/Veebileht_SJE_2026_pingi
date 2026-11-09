@@ -1,0 +1,31 @@
+main {
+    display: grid;
+    grid-template-columns: auto auto;
+    background-color: #182957;
+}
+
+.introduction {
+    background-color: red;
+}
+.instructions {
+    background-color: green;
+}
+.home-buttons {
+    display: flex;
+}
+.btn1 {
+  color: black;
+  text-align: center;
+  padding: 18px;
+  text-decoration: none;
+  font-size: 18px; 
+  background-color: aqua;
+}
+.btn2 {
+  color: black;
+  text-align: center;
+  padding: 18px;
+  text-decoration: none;
+  font-size: 18px; 
+  background-color: aqua;
+}

@@ -1,0 +1,54 @@
+/*Menüü nupp on aktiivne olenevalt lehest, võib ka teise loogika abil teha, praegu tegin nii.*/
+.active {
+  background-color: #063f3f;
+  color: cyan;
+  border-radius: 25px;
+}
+main {
+  padding: 20px 30px;
+  background-color: #182957;;
+}
+.curriculum-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 25px;
+  margin-bottom: 30px;
+}
+.semester-block {
+  backdrop-filter: blur(10px);
+  border: 1px solid #ffffff26;
+  box-shadow: 0 25px 45px #0000000d;
+  background: #ffffff26;
+  padding: 20px 30px;
+  min-height: 300px;
+  min-width: 100%;
+  border-radius: 25px;
+}
+.studies-container {
+  background-color: blue;
+  padding: 20px 30px;
+}
+.study-row {
+  background-color: cyan;
+}
+.semester-btns {
+  background-color: green;
+  padding: 20px 30px;
+}
+.delete-row-btn {
+  background-color: red;
+  color: yellow;
+}
+.calculating-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .curriculum-grid {
+    grid-template-columns: 1fr;
+  }
+}

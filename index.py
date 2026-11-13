@@ -75,9 +75,9 @@ def ennustaja(hinded, ainepunktid, soovitud):
     #print(ainepunktide_summa, 'ainepunktide_summa')
     #print(puuduv_ainepunkt, 'puuduv_ainepunkt')
     """
-    Proovime kõiki puuduvaid hindeid vahemikus 0-5
+    Proovime kõiki puuduvaid hindeid vahemikus 1-5
     """
-    kombinatsioonid = itertools.product(range(6), repeat=len(puuduvad))
+    kombinatsioonid = itertools.product(range(1, 6), repeat=len(puuduvad))
 
     väiksem_summa = 0
         
@@ -173,9 +173,9 @@ def üld_ennustaja(hinded_list, ainepunktid_list, soovitud):
         #print(ainepunktide_summa, 'ainepunktide_summa')
         #print(puuduv_ainepunkt, 'puuduv_ainepunkt')
     """
-    Proovime kõiki puuduvaid hindeid vahemikus 0-5
+    Proovime kõiki puuduvaid hindeid vahemikus 1-5
     """
-    kombinatsioonid = itertools.product(range(6), repeat=len(puuduvad))
+    kombinatsioonid = itertools.product(range(1, 6), repeat=len(puuduvad))
 
     väiksem_summa = 0
     
